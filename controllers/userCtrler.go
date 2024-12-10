@@ -103,3 +103,10 @@ func Login(ginCtx *gin.Context) {
 		"access_token": tokenStr,
 	})
 }
+
+func GetMe(ginCtx *gin.Context) {
+	user, _ := ginCtx.Get("user")
+	ginCtx.JSON(http.StatusOK, gin.H{
+		"user": user,
+	})
+}
