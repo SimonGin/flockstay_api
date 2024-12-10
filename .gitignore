@@ -1,0 +1,23 @@
+# Binaries
+*.exe
+*.out
+*.dll
+*.so
+*.dylib
+flockstay_api
+# Environment
+.env
+# Temporary files
+*.tmp
+*.log
+
+# Vendor directory
+/vendor/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+
+# Go-specific
+*.test
