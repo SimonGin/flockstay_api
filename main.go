@@ -1,3 +1,4 @@
+// Fix the model for hotel: price and data type
 package main
 
 import (
