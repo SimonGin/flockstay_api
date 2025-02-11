@@ -29,6 +29,7 @@ func main() {
 	router.POST("/auth/register", controllers.Register)
 	router.POST("/auth/login", controllers.Login)
 	router.GET("/me", middlewares.ValidateToken, controllers.GetMe)
-	router.GET("/hotels", controllers.GetHotelList)
+	router.GET("/explore/hotels", controllers.GetHotelList)
+	router.GET("/explore/cities", controllers.GetCityExploreList)
 	router.Run()
 }
