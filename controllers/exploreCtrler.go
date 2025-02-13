@@ -51,23 +51,27 @@ func GetHotelList(ginCtx *gin.Context) {
 }
 
 func GetCityExploreList(ginCtx *gin.Context) {
-	var cityCounts []struct {
-		Name       string `json:"name"`
-		HotelCount int64  `json:"hotel_count"`
+	var exploreCities []struct {
+		Name     string `json:"name"`
+		Image    string `json:"image"`
+		HotelNum int64  `json:"hotel_num"`
 	}
 
-	// Query to count hotels per city and get the top 3 cities
+	// Query to count hotels per city and get the top 3 cities with images
 	initializers.DB.Table("cities").
-		Select("cities.name, COUNT(hotels.id) AS hotel_count").
+		Select("cities.name, cities.image, COUNT(hotels.id) AS hotel_num").
 		Joins("LEFT JOIN hotels ON hotels.city_id = cities.id").
 		Group("cities.id").
-		Order("hotel_count DESC").
+		Order("hotel_num DESC").
 		Limit(3).
-		Scan(&cityCounts)
+		Scan(&exploreCities)
 
 	// Return response
 	ginCtx.JSON(http.StatusOK, gin.H{
-		"msg":  "Successfully retrieved top 3 cities with most hotels",
-		"data": cityCounts,
+		"msg": "Successfully retrieved top 3 cities with most hotels",
+		"metadata": gin.H{
+			"count": len(exploreCities),
+			"data":  exploreCities,
+		},
 	})
 }
